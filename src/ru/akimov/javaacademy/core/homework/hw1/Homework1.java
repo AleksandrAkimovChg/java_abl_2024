@@ -2,7 +2,6 @@ package ru.akimov.javaacademy.core.homework.hw1;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.SQLOutput;
 
 public class Homework1 {
     public static void main(String[] args) {
