@@ -5,11 +5,11 @@ import java.math.RoundingMode;
 
 public class Homework1 {
     public static void main(String[] args) {
-        //ex2();
+        ex2();
         System.out.println("___________________________________________");
-        //ex3();
+        ex3();
         System.out.println("___________________________________________");
-        //ex4();
+        ex4();
         System.out.println("___________________________________________");
         int soldSausage = 2000;
         int soldHam = 8511;
@@ -22,7 +22,6 @@ public class Homework1 {
     }
 
     public static void ex2() {
-        //Дана строка
         String name = "     ПЕтРов Олег Иванович     ";
         String nameUpperCase = name.trim().toUpperCase();
 
@@ -157,7 +156,7 @@ public class Homework1 {
             System.out.println("сумма налога c суммы прибыли 1 млн: " + taxAmountOneMln);
             System.out.println("сумма налога c суммы прибыли 2 млн без 1 млн: " + taxAmountAboveOneMlnUnderTwoMln);
             BigDecimal taxAmountTwoMln = taxAmountOneMln.add(taxAmountAboveOneMlnUnderTwoMln);
-            System.out.println("сумма налога c суммы прибыли свышк 2 млн всего: " + taxAmountTwoMln);
+            System.out.println("сумма налога c суммы прибыли свыше 2 млн всего: " + taxAmountTwoMln);
             BigDecimal tax = taxAboveTwoMln.add(taxAmountTwoMln);
             System.out.println("сумма налога всего: " + tax);
             BigDecimal profitAfterTax = profitBeforeTaxBigDecimal.subtract(tax);
