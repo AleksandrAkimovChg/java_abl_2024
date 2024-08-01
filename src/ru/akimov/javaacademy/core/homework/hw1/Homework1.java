@@ -22,6 +22,7 @@ public class Homework1 {
     }
 
     public static void ex2() {
+
         String name = "     ПЕтРов Олег Иванович     ";
         String nameUpperCase = name.trim().toUpperCase();
 
