@@ -45,7 +45,7 @@ public class Homework1 {
         boolean isWheelWork4 = true;
         boolean isWheelsWork = isWheelWork1 && isWheelWork2 && isWheelWork3 && isWheelWork4;
 
-        if (fuel <= 10 && isEngineWork && !hasErrors && isWheelsWork) {
+        if (fuel >= 10 && isEngineWork && !hasErrors && isWheelsWork) {
             System.out.println("Машина едет");
         } else {
             System.out.println("Машина не едет");
@@ -64,12 +64,9 @@ public class Homework1 {
      * Принимается только при использовании класса BigDecimal в расчетах.
      */
     public static void advanced(int soldSausage, int soldHam, int soldNeck) {
-        final int priceSausage = 800;
-        final int priceHam = 350;
-        final int priceNeck= 500;
 
         int coastSausage = 0;
-        int coastHam= 275;
+        int coastHam = 275;
         int coastNeck = 0;
 
         if (soldSausage < 1000) {
@@ -85,55 +82,53 @@ public class Homework1 {
         } else {
             coastNeck = 299;
         }
-        int incomeSausage = priceSausage * soldSausage;
-        System.out.println("выручка от продажи сосисок: " + incomeSausage);
-        int incomeHam = priceHam * soldHam;
-        System.out.println("выручка от продажи ветчины: " + incomeHam);
-        int incomeNeck = priceNeck * soldNeck;
-        System.out.println("выручка от продажи шейки: " + incomeNeck);
-        int income = incomeSausage + incomeHam + incomeNeck;
-        System.out.println("выручка всего: " + income);
-        int expenceSausage = coastSausage * soldSausage;
-        System.out.println("расход по сосискам: " + expenceSausage);
-        int expenceHam = coastHam * soldHam;
-        System.out.println("расход по ветчине: " + expenceHam);
-        int expenceNeck = coastNeck * soldNeck;
-        System.out.println("расход по шейке: " + expenceNeck);
-        int expense = expenceSausage + expenceHam + expenceNeck;
-        System.out.println("расход всего: " + expense);
-        int profitBeforeTax = income - expense;
+
+        final BigDecimal priceSausage = new BigDecimal("800");
+        final BigDecimal priceHam = new BigDecimal("350");
+        final BigDecimal priceNeck = new BigDecimal("500");
+
+        BigDecimal incomeSausage =  priceSausage.multiply(new BigDecimal(String.valueOf(soldSausage)));
+        BigDecimal incomeHam = priceHam.multiply(new BigDecimal(String.valueOf(soldHam)));
+        BigDecimal incomeNeck = priceNeck.multiply(new BigDecimal(String.valueOf(soldNeck)));
+        BigDecimal income = incomeSausage.add(incomeHam).add(incomeNeck);
+
+        BigDecimal coastSausageBigDecimal = new BigDecimal(String.valueOf(coastSausage));
+        BigDecimal expenceSausage = coastSausageBigDecimal.multiply(new BigDecimal(String.valueOf(soldSausage)));
+        BigDecimal coastHamBigDecimal = new BigDecimal(String.valueOf(coastHam));
+        BigDecimal expenceHam = coastHamBigDecimal.multiply(new BigDecimal(String.valueOf(soldHam)));
+        BigDecimal coastNeckBigdecimal = new BigDecimal(String.valueOf(coastNeck));
+        BigDecimal expenceNeck = coastNeckBigdecimal.multiply(new BigDecimal(String.valueOf(soldNeck)));
+        BigDecimal expense = expenceSausage.add(expenceHam).add(expenceNeck);
+
+        BigDecimal profitBeforeTax = income.subtract(expense);
         System.out.println("прибыль до налогообложения: " + profitBeforeTax);
+
         BigDecimal taxRate8 = new BigDecimal("0.08");
         BigDecimal taxRate10 = new BigDecimal("0.1");
         BigDecimal taxRate13 = new BigDecimal("0.13");
-        BigDecimal profitBeforeTaxBigDecimal = new BigDecimal(String.valueOf(profitBeforeTax));
-        int oneMln = 1_000_000;
-        int twoMln = 2_000_000;
-        BigDecimal profitBeforeTaxOneMln = new BigDecimal(String.valueOf(oneMln));
+
+        BigDecimal profitBeforeTaxOneMln = new BigDecimal(String.valueOf(1_000_000));
         BigDecimal taxAmountOneMln = profitBeforeTaxOneMln
                 .multiply(taxRate8)
                 .setScale(2, RoundingMode.HALF_UP);
-        System.out.println("сумма налога с суммы 1 млн по ставке 8%, для диапазона до 1 млн: " + taxAmountOneMln);
-        BigDecimal profitBeforeTaxAboveOneMlbUnderTwoMln = new BigDecimal(String.valueOf(twoMln - oneMln));
+
+        BigDecimal profitBeforeTaxAboveOneMlbUnderTwoMln = new BigDecimal(String.valueOf(2_000_000 - 1_000_000));
         BigDecimal taxAmountAboveOneMlnUnderTwoMln = profitBeforeTaxAboveOneMlbUnderTwoMln
                 .multiply(taxRate10)
                 .setScale(2, RoundingMode.HALF_UP);
-        System.out.println("сумма налога с суммы 1 млн по ставке 10%, для диапазона с 1 млн до 2 млн: "
-                + taxAmountAboveOneMlnUnderTwoMln);
 
-        if (profitBeforeTax <= oneMln) {
+        if (profitBeforeTax.compareTo(profitBeforeTaxOneMln) <= 0) {
             System.out.println("начинаю расчет налога по ставке 8%");
-            BigDecimal tax = profitBeforeTaxBigDecimal
+            BigDecimal tax = profitBeforeTax
                     .multiply(taxRate8)
                     .setScale(2, RoundingMode.HALF_UP);
             System.out.println("суммы налога всего: " + tax);
-            BigDecimal profitAfterTax = profitBeforeTaxBigDecimal.subtract(tax);
+            BigDecimal profitAfterTax = profitBeforeTax.subtract(tax);
             System.out.println("прибыль после налогов: " + profitAfterTax);
-        } else if (profitBeforeTax > oneMln && profitBeforeTax <= twoMln) {
+        } else if (profitBeforeTax.compareTo(profitBeforeTaxOneMln) > 0
+                && profitBeforeTax.compareTo(profitBeforeTaxAboveOneMlbUnderTwoMln) <= 0) {
             System.out.println("начинаю расчет налога по ставке 10%");
-            BigDecimal profitBeforeTaxUnderTwoMln = new BigDecimal(
-                    String.valueOf(profitBeforeTax - oneMln)
-            );
+            BigDecimal profitBeforeTaxUnderTwoMln = profitBeforeTax.subtract(profitBeforeTaxOneMln);
             System.out.println("прибыль свыше 1 млн: " + profitBeforeTaxUnderTwoMln);
             BigDecimal taxUnderTwoMln = profitBeforeTaxUnderTwoMln
                     .multiply(taxRate10)
@@ -142,13 +137,11 @@ public class Homework1 {
             System.out.println("сумма налога до 1 млн: " + taxAmountOneMln);
             BigDecimal tax = taxUnderTwoMln.add(taxAmountOneMln);
             System.out.println("суммы налога всего: " + tax);
-            BigDecimal profitAfterTax = profitBeforeTaxBigDecimal.subtract(tax);
+            BigDecimal profitAfterTax = profitBeforeTax.subtract(tax);
             System.out.println("прибыль после налогов: " + profitAfterTax);
-        } else if (profitBeforeTax > twoMln) {
+        } else if (profitBeforeTax.compareTo(profitBeforeTaxAboveOneMlbUnderTwoMln) > 0) {
             System.out.println("начинаю расчет налога по ставке 13%");
-            BigDecimal profitBeforeTaxAboveTwoMln = new BigDecimal(
-                    String.valueOf(profitBeforeTax - twoMln)
-            );
+            BigDecimal profitBeforeTaxAboveTwoMln = profitBeforeTax.subtract(profitBeforeTaxAboveOneMlbUnderTwoMln);
             System.out.println("сумма прибыли свыше 2 млн: " + profitBeforeTaxAboveTwoMln);
             BigDecimal taxAboveTwoMln = profitBeforeTaxAboveTwoMln
                     .multiply(taxRate13)
@@ -160,7 +153,7 @@ public class Homework1 {
             System.out.println("сумма налога c суммы прибыли свыше 2 млн всего: " + taxAmountTwoMln);
             BigDecimal tax = taxAboveTwoMln.add(taxAmountTwoMln);
             System.out.println("сумма налога всего: " + tax);
-            BigDecimal profitAfterTax = profitBeforeTaxBigDecimal.subtract(tax);
+            BigDecimal profitAfterTax = profitBeforeTax.subtract(tax);
             System.out.println("прибыль после налогов: " + profitAfterTax);
         }
     }
