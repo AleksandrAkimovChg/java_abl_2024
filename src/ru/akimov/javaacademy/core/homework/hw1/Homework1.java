@@ -26,9 +26,9 @@ public class Homework1 {
         String name = "     ПЕтРов Олег Иванович     ";
         String nameUpperCase = name.trim().toUpperCase();
 
-        if (nameUpperCase.contains("ова ".toUpperCase())) {
+        if (nameUpperCase.contains("ОВА ")) {
             System.out.println("Уважаемая " + nameUpperCase);
-        } else if (nameUpperCase.contains("ов ")) {
+        } else if (nameUpperCase.contains("ОВ ")) {
             System.out.println("Уважаемый " + nameUpperCase);
         } else {
             System.out.println("Неизвестное лицо " + nameUpperCase);
