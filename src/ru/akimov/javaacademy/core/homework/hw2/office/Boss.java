@@ -8,6 +8,10 @@ public class Boss {
     }
 
     public void action(Manager manager) {
-        System.out.println("босс: " + manager.name + " быстрее!");
+        System.out.println("босс: " + manager.getName() + " быстрее!");
+    }
+
+    public String getName() {
+        return name;
     }
 }

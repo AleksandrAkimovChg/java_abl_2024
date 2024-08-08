@@ -10,4 +10,8 @@ public class Security {
     public void action() {
         System.out.println("охранник: Прошу выдать мне аванс.");
     }
+
+    public String getName() {
+        return name;
+    }
 }
